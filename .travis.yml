@@ -1,0 +1,10 @@
+language: python
+python:
+  - 10
+install:
+    - pip install -q -r requeriments-dev.txt codecov
+script:
+  -   flake8
+  - pytest libpythonpro --cov=libpythonpro
+after_success:
+  - codecov
