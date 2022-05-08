@@ -7,10 +7,11 @@ def test_criar_enviador_de_email():
 
 def test_remetente():
     enviador = Enviador()
-    resultado=enviador.enviar(
-        'davidygn17@gmail.com',
+    destinatario = 'davidygn17@gmail.com'
+    resultado = enviador.enviar(
+         destinatario,
         'margaridafernandes05@gmail.com',
         'teste de curso DEVPRO',
         'fazendo teste pra aprender como tudo isso funciona'
     )
-    assert 'davidygn17@gmail.com' in resultado
+    assert destinatario in resultado
