@@ -1,13 +1,19 @@
+import pytest
+
 from libpythonpro.tests.enviador_de_email import Enviador
 
 
 def test_criar_enviador_de_email():
     enviador = Enviador()
     assert enviador is not None
-
-def test_remetente():
+@pytest.mark.parametrize(
+    'destinatario',
+    ['davidygn17@gmail.com', 'davidyurigarcianunes93@gmail.com']
+)
+def test_remetente(destinatario):
     enviador = Enviador()
-    destinatario = 'davidygn17@gmail.com'
+    destinatarios = ['davidygn17@gmail.com', 'davidyurigarcianunes93@gmail.com']
+    destinatario
     resultado = enviador.enviar(
          destinatario,
         'margaridafernandes05@gmail.com',
