@@ -1,17 +1,17 @@
 import pytest
 
-from libpythonpro.spam.db import Conexao
+from libpythonpro.tests.test_spam.conftest import Conexao
 from libpythonpro.spam.modelos import Usuario
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def conexao():
     #Setup
     conexao_obj = Conexao()
     yield conexao_obj
-    #Tear Down
+    #tear Down
     conexao_obj.fechar()
 
-@pytest.fixture()
+@pytest.fixture
 def sessao(conexao):
     sessao_obj = conexao.gerar_sessao()
     yield sessao_obj
