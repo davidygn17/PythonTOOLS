@@ -1,7 +1,8 @@
 import pytest
 
-from libpythonpro.tests.test_spam.conftest import Conexao
 from libpythonpro.spam.modelos import Usuario
+from libpythonpro.tests.test_spam.conftest import Conexao, Sessao
+
 
 @pytest.fixture(scope='session')
 def conexao():
@@ -18,13 +19,13 @@ def sessao(conexao):
     sessao_obj.roll_back()
     sessao_obj.fechar()
 
-def test_salvar_usuario( sessao):
+def test_salvar_usuario(sessao):
     usuario = Usuario(nome='David')
     sessao.salvar(usuario)
     assert isinstance(usuario.id, int)
 
 
-def test_listar_usuario(conexao, sessao):
+def test_listar_usuario(sessao):
     usuarios = [Usuario(nome='David'), Usuario(nome='Margarida')]
     for usuario in usuarios:
         sessao.salvar(usuario)
