@@ -1,25 +1,21 @@
-class Sessao:
-    contador = 0
-    usuarios = []
+import pytest
 
-    def salvar(self, usuario):
-        Sessao.contador += 1
-        usuario.id = Sessao.contador
-        self.usuarios.append(usuario)
+from libpythonpro.spam.db import Conexao
 
 
-    def listar(self):
-        return self.usuarios
+@pytest.fixture(scope='session')
+def conexao():
+    #Setup
+    conexao_obj = Conexao()
+    yield conexao_obj
+    # Tear Down
+    conexao_obj.fechar()
 
-    def roll_back(self):
-        self.usuarios.clear()
+@pytest.fixture()
+def sessao(conexao):
+    sessao_obj = conexao.gerar_sessao()
+    yield sessao_obj
+    sessao_obj.roll_back()
+    sessao_obj.fechar()
 
-    def fechar(self):
-        pass
 
-
-class Conexao:
-    def gerar_sessao(self):
-        return Sessao()
-    def fechar(self):
-        pass
